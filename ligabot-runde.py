@@ -199,17 +199,8 @@ output += runde_result
 output += "\n\n&nbsp;\n\n"+sisteord[randint(0,len(sisteord)-1)]+"\n\n---\n###[](http://reddit.com#)\nHar du forslag til endringer eller ser du feil i denne posten? [Si ifra her!](http://reddit.com/message/compose/?to=ligabot&subject=Tips%20til%20endring/feil%20i%20runde-poster)"
 
 try:
-    reddit.submit(subreddit, tittel_runde, text=output, captcha=None)
     #reddit.submit(subreddit, tittel_runde, output, captcha=None)
-    #print (output)
-    #tw.send_direct_message(screen_name="geiraasen", text="Ny runde i Tippeligaen er posta.")
-    rundesjekk = open('/home/geir/coding/redditbot/rundesjekk', 'a')
-    rundesjekk.write(tittel_runde + '\n')
-    rundesjekk.close()
+    print (output)
 except (SystemExit, KeyboardInterrupt) as e:
     log('ligabot-runde.py klarte ikke å kjøre ferdig')
-    tw.send_direct_message(screen_name="geiraasen", text="Feil ved kjøring av TL-rundene ("+time.strftime("%d.%m.%Y - %H:%M:%S")+")")
-    sys.exit(0)
-except (twython.exceptions.TwythonError):
-    log('ligabot-runde.py klarte ikke å sende melding på twitter')
     sys.exit(0)

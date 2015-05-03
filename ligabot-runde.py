@@ -25,6 +25,7 @@ username = reddit['username']
 password = reddit['password']
 useragent = reddit['useragent']
 subreddit = "tippeligaensandbox"
+reddit_post_title = ""
 
 consumer_key = twitter['consumer_key']
 consumer_secret = twitter['consumer_secret']
@@ -82,7 +83,7 @@ borte = []
 plassering = {}
 runde_dager = []
 temp_runde = ""
-tittel_runde = ""
+
 
 #Hent datoene i runden først og putt i list
 for row in runde_rows:
@@ -125,11 +126,12 @@ for row in runde_rows:
     #Henter info fra hver linje
     global runde
     runde = cols[1].text.strip()
-    readtext = open('/home/geir/coding/redditbot/rundesjekk', 'r')
+    readtext = open('rundesjekk', 'r')
     rundesjekk = readtext.read()
     readtext.close()
     if temp_runde == "":
         temp_runde = runde
+        reddit_post_title = runde
     elif temp_runde != runde:
         break
     #Finn hjemmelaget i kampen og legg til lista 'hjemme'
@@ -205,7 +207,7 @@ output += runde_result
 output += "\n\n&nbsp;\n\n"+sisteord[randint(0,len(sisteord)-1)]+"\n\n---\n###[](http://reddit.com#)\nHar du forslag til endringer eller ser du feil i denne posten? [Si ifra her!](http://reddit.com/message/compose/?to=ligabot&subject=Tips%20til%20endring/feil%20i%20runde-poster)"
 
 try:
-    #reddit.submit(subreddit, tittel_runde, output, captcha=None)
+    reddit.submit(subreddit, reddit_post_title, output, captcha=None)
     print (output)
 except (SystemExit, KeyboardInterrupt) as e:
     if uselog:

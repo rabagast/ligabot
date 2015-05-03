@@ -2,8 +2,12 @@
 # -*- coding: utf-8 -*-
 import sys
 from bs4 import BeautifulSoup as bs
-import syslog
-log = syslog.syslog
+try:
+    import syslog
+    uselog = True
+    log = syslog.syslog
+except ImportError:
+    uselog = False
 import requests
 import time
 from datetime import datetime
@@ -96,7 +100,8 @@ for row in runde_rows:
 
 if runde_dager[0] > 2:
     #print ("break :(")
-    log('ligabot-runde.py kjørte, men runde ikke nær nok i tid. Variabelen days var '+str(days))
+    if uselog:
+        log('ligabot-runde.py kjørte, men runde ikke nær nok i tid. Variabelen days var '+str(days))
     sys.exit(0)
 
 #Hent plasseringer først og putt i dictionary
@@ -203,5 +208,6 @@ try:
     #reddit.submit(subreddit, tittel_runde, output, captcha=None)
     print (output)
 except (SystemExit, KeyboardInterrupt) as e:
-    log('ligabot-runde.py klarte ikke å kjøre ferdig')
+    if uselog:
+        log('ligabot-runde.py klarte ikke å kjøre ferdig')
     sys.exit(0)

@@ -17,4 +17,10 @@ For å kjøre ligabot trenger du Python 3 og noen ekstra biblioteker. Innstaller
 
 fra kommandolinjen. 
 
+## Kjøring
 
+...
+
+### Windows
+
+Pass på at Python ligger i PATH-en og gå til katalogen med ligabot-runde.py . Kjør `python ligabot-runde.py`

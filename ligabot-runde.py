@@ -9,6 +9,7 @@ try:
 except ImportError:
     uselog = False
 import requests
+import codecs
 import time
 from datetime import datetime
 import html.parser
@@ -235,8 +236,9 @@ def createLigabot():
     wantedFile = "ligabot.py"
     created = createFileIfNotExisting(wantedFile)
     if created:
-        with open(createFilePathToScriptFolder(wantedFile), "w") as ligafile:
+        with codecs.open(createFilePathToScriptFolder(wantedFile), "w", "utf-8") as ligafile:
             ligafile.write("""#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 twitter = {
     'consumer_key': 'xxx',
     'consumer_secret': 'xxx',

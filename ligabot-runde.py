@@ -40,7 +40,7 @@ def main():
     createNecessaryFiles()
     reddit = praw.Reddit(user_agent=useragent)
     reddit.login(username, password)
-    #subreddit = reddit.get_subreddit(subreddit)
+    praw_subreddit = reddit.get_subreddit(subreddit)
 
     forkortelse = {
         'Aalesund': 'AaFK',
@@ -207,8 +207,12 @@ def main():
     output += "\n\n&nbsp;\n\n"+sisteord[randint(0,len(sisteord)-1)]+"\n\n---\n###[](http://reddit.com#)\nHar du forslag til endringer eller ser du feil i denne posten? [Si ifra her!](http://reddit.com/message/compose/?to=ligabot&subject=Tips%20til%20endring/feil%20i%20runde-poster)"
 
     try:
-        #reddit.submit(subreddit, reddit_post_title, output, captcha=None)
-        print (output)
+        if threadAlreadyCreated(reddit, reddit_post_title):
+            print ("Tråd med navn '{0}' opprettet av brukeren '{1}' finnes allerede".format(reddit_post_title, username))
+            sys.exit(0)
+        else:
+            reddit.submit(subreddit, reddit_post_title, output, captcha=None)
+            print (output)
     except (SystemExit, KeyboardInterrupt) as e:
         if uselog:
             log('ligabot-runde.py klarte ikke å kjøre ferdig')
@@ -257,6 +261,14 @@ reddit = {
 def createFilePathToScriptFolder(filename):
     return os.path.join(os.getcwd(), filename)
     
+   
+def threadAlreadyCreated(reddit, title):
+    me = reddit.get_redditor(username)
+    for submission in me.get_submitted():
+        if submission.title == title:
+            return True
+    return False
     
+
 if __name__ == "__main__":
     main()

@@ -19,7 +19,7 @@ fra kommandolinjen.
 
 ## Kjøring
 
-...
+Filen ligabot.py vil bli opprettet i katalogen du står i dersom den ikke finnes. Her fyller du ut ditt brukernavn og passord til Reddit og Twitter.
 
 ### Windows
 

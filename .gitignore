@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # OS
 Thumbs.db
 ehthumbs.db
@@ -12,3 +13,8 @@ pip-log.txt
 userinfo.py
 __pycache__/*
 rundesjekk
+=======
+ligabot.py
+__pycache__/ligabot.cpython-34.pyc
+rundesjekk
+>>>>>>> 453e2758c9996685aac67edbe92a59291d39e352

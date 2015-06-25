@@ -10,3 +10,5 @@ pip-log.txt
 
 # Script specific
 userinfo.py
+__pycache__/*
+rundesjekk

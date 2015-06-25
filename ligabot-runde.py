@@ -21,10 +21,9 @@ import twython
 Twython = twython.Twython
 import os
 from random import randint
-from ligabot import twitter, reddit
+from userinfo import twitter, reddit
 
 username = reddit['username']
-password = reddit['password']
 useragent = reddit['useragent']
 subreddit = "tippeligaensandbox"
 reddit_post_title = ""
@@ -38,9 +37,11 @@ tw = Twython(consumer_key, consumer_secret, access_token_key, access_token_secre
 
 def main():
     createNecessaryFiles()
-    reddit = praw.Reddit(user_agent=useragent)
-    reddit.login(username, password)
-    #subreddit = reddit.get_subreddit(subreddit)
+    r = praw.Reddit(user_agent=useragent)
+    r.set_oauth_app_info(client_id=reddit['client_id'],
+        client_secret=reddit['client_secret'],
+        redirect_uri=reddit['redirect_uri'])
+    r.refresh_access_information(reddit['refresh_key'])
 
     forkortelse = {
         'Aalesund': 'AaFK',
@@ -207,7 +208,7 @@ def main():
     output += "\n\n&nbsp;\n\n"+sisteord[randint(0,len(sisteord)-1)]+"\n\n---\n###[](http://reddit.com#)\nHar du forslag til endringer eller ser du feil i denne posten? [Si ifra her!](http://reddit.com/message/compose/?to=ligabot&subject=Tips%20til%20endring/feil%20i%20runde-poster)"
 
     try:
-        #reddit.submit(subreddit, reddit_post_title, output, captcha=None)
+        r.submit(subreddit, reddit_post_title, output, captcha=None)
         print (output)
     except (SystemExit, KeyboardInterrupt) as e:
         if uselog:
@@ -233,7 +234,7 @@ def createFileIfNotExisting(file):
     return False
     
 def createLigabot():
-    wantedFile = "ligabot.py"
+    wantedFile = "userinfo.py"
     created = createFileIfNotExisting(wantedFile)
     if created:
         with codecs.open(createFilePathToScriptFolder(wantedFile), "w", "utf-8") as ligafile:
@@ -248,8 +249,12 @@ twitter = {
 
 reddit = {
     'username': 'xxx',
-    'password': 'xxx',
-    'useragent': 'In service for /r/Tippeligaen, made by /u/armandg'
+    'useragent': 'In service for /r/Tippeligaen, made by /u/armandg',
+    'client_id': 'xxx',
+    'client_secret': 'xxx',
+    'redirect_uri': 'xxx',
+    'access_key': 'xxx',
+    'refresh_key': 'xxx'
 }
 """)
 

@@ -27,27 +27,7 @@ Siden PRAW nå har gått over fra å bruke vanlig brukernavn/passord for innlogg
 2. Tekststringen under navnet på appen du akkurat lagde er det som du skal fylle inn i "client_id" i ligabot.py.
 3. Tekststringen ved "secret" er den som skal fylles inn i "client_secret" i ligabot.py.
 4. Kjør filen "reddit_oauth.py" med følgende variabler på egnet måte (i cmd/Terminal eller lignende): "python reddit_oauth.py client_id client_secret https://127.0.0.1:65010/authorize_callback identity
-wikiread". De siste (identity og wikiread) er "tilgangene" som botscriptet får tilgang til å bruke. Dette kan utvides til å inneholde alle eller noen av følgende "scopes":
-
-- identity
-- edit
-- flair
-- history
-- modconfig
-- modflair
-- modlog
-- modposts
-- modwiki
-- mysubreddits
-- privatemessages
-- read
-- report
-- save
-- submit
-- subscribe
-- vote
-- wikiedit
-- wikiread
+wikiread". De siste (identity og wikiread) er "tilgangene" som botscriptet får tilgang til å bruke. Dette kan utvides til å inneholde alle eller noen av følgende "scopes": identity, edit, flair, history, modconfig, modflair, modlog, modposts, modwiki, mysubreddits, privatemessages, read, report, save, submit, subscribe, vote, wikiedit, wikiread
 
 5. Når du kjører scriptet vil du få en URL, gå inn på den og hent koden på slutten av URL som du ender opp med etter å ha gått inn på den.
 6. Lim inn koden tilbake der du kjørte scriptet for å få en refresh-token. Denne legger du inn i ligabot.py under "refreshtoken".

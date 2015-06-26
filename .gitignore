@@ -1,3 +1,20 @@
+<<<<<<< HEAD
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Python
+pip-log.txt
+
+# Script specific
+userinfo.py
+__pycache__/*
+rundesjekk
+=======
 ligabot.py
 __pycache__/ligabot.cpython-34.pyc
 rundesjekk
+>>>>>>> 453e2758c9996685aac67edbe92a59291d39e352

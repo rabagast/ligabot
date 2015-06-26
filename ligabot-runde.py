@@ -21,10 +21,9 @@ import twython
 Twython = twython.Twython
 import os
 from random import randint
-from ligabot import twitter, reddit
+from userinfo import twitter, reddit
 
 username = reddit['username']
-password = reddit['password']
 useragent = reddit['useragent']
 subreddit = "tippeligaensandbox"
 reddit_post_title = ""
@@ -38,9 +37,17 @@ tw = Twython(consumer_key, consumer_secret, access_token_key, access_token_secre
 
 def main():
     createNecessaryFiles()
+<<<<<<< HEAD
+    r = praw.Reddit(user_agent=useragent)
+    r.set_oauth_app_info(client_id=reddit['client_id'],
+        client_secret=reddit['client_secret'],
+        redirect_uri=reddit['redirect_uri'])
+    r.refresh_access_information(reddit['refresh_key'])
+=======
     reddit = praw.Reddit(user_agent=useragent)
     reddit.login(username, password)
-    #subreddit = reddit.get_subreddit(subreddit)
+    praw_subreddit = reddit.get_subreddit(subreddit)
+>>>>>>> 453e2758c9996685aac67edbe92a59291d39e352
 
     forkortelse = {
         'Aalesund': 'AaFK',
@@ -207,8 +214,17 @@ def main():
     output += "\n\n&nbsp;\n\n"+sisteord[randint(0,len(sisteord)-1)]+"\n\n---\n###[](http://reddit.com#)\nHar du forslag til endringer eller ser du feil i denne posten? [Si ifra her!](http://reddit.com/message/compose/?to=ligabot&subject=Tips%20til%20endring/feil%20i%20runde-poster)"
 
     try:
-        #reddit.submit(subreddit, reddit_post_title, output, captcha=None)
+<<<<<<< HEAD
+        r.submit(subreddit, reddit_post_title, output, captcha=None)
         print (output)
+=======
+        if threadAlreadyCreated(reddit, reddit_post_title):
+            print ("Tråd med navn '{0}' opprettet av brukeren '{1}' finnes allerede".format(reddit_post_title, username))
+            sys.exit(0)
+        else:
+            reddit.submit(subreddit, reddit_post_title, output, captcha=None)
+            print (output)
+>>>>>>> 453e2758c9996685aac67edbe92a59291d39e352
     except (SystemExit, KeyboardInterrupt) as e:
         if uselog:
             log('ligabot-runde.py klarte ikke å kjøre ferdig')
@@ -233,7 +249,7 @@ def createFileIfNotExisting(file):
     return False
     
 def createLigabot():
-    wantedFile = "ligabot.py"
+    wantedFile = "userinfo.py"
     created = createFileIfNotExisting(wantedFile)
     if created:
         with codecs.open(createFilePathToScriptFolder(wantedFile), "w", "utf-8") as ligafile:
@@ -248,8 +264,12 @@ twitter = {
 
 reddit = {
     'username': 'xxx',
-    'password': 'xxx',
-    'useragent': 'In service for /r/Tippeligaen, made by /u/armandg'
+    'useragent': 'In service for /r/Tippeligaen, made by /u/armandg',
+    'client_id': 'xxx',
+    'client_secret': 'xxx',
+    'redirect_uri': 'xxx',
+    'access_key': 'xxx',
+    'refresh_key': 'xxx'
 }
 """)
 
@@ -257,6 +277,14 @@ reddit = {
 def createFilePathToScriptFolder(filename):
     return os.path.join(os.getcwd(), filename)
     
+   
+def threadAlreadyCreated(reddit, title):
+    me = reddit.get_redditor(username)
+    for submission in me.get_submitted():
+        if submission.title == title:
+            return True
+    return False
     
+
 if __name__ == "__main__":
     main()
